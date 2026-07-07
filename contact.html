@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact · El Mehsen Hair &amp; Makeup</title>
+  <meta name="description" content="Get in touch with El Mehsen, professional makeup artist and hairdresser. Book a consultation or inquire about services." />
+  <link rel="canonical" href="https://www.elmehsen.com/contact.html" />
+  <meta property="og:title" content="Contact · El Mehsen Hair &amp; Makeup" />
+  <meta property="og:description" content="Reach out to El Mehsen for bookings, collaborations, or inquiries." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.elmehsen.com/contact.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "name": "Contact El Mehsen",
+      "description": "Contact information for El Mehsen, makeup artist and hairdresser.",
+      "url": "https://www.elmehsen.com/contact.html"
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* ----- RESET & BASE ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background: #0c0806;
+      color: #f5f0eb;
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ----- VIDEO BACKGROUND (brighter, like booking.html) ----- */
+    #videoBackground {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      overflow: hidden;
+      background: #0c0806;
+    }
+
+    #videoBackground video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 1.8s ease-in-out;
+    }
+
+    #videoBackground video.active {
+      opacity: 1;
+    }
+
+    /* Lighter overlay for brighter video */
+    #videoBackground .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(12, 8, 6, 0.25);
+      background: linear-gradient(135deg, rgba(12, 8, 6, 0.35) 0%, rgba(12, 8, 6, 0.15) 60%, rgba(12, 8, 6, 0.30) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Lighter vignette */
+    #videoBackground .vignette {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+      pointer-events: none;
+      background: radial-gradient(ellipse at center, transparent 60%, rgba(0, 0, 0, 0.2) 100%);
+    }
+
+    /* ----- HEADER (glass) ----- */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 1rem 0;
+      background: rgba(12, 8, 6, 0.50);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border-bottom: 1px solid rgba(255, 215, 180, 0.08);
+      transition: background 0.4s ease, backdrop-filter 0.4s ease;
+    }
+
+    header.scrolled {
+      background: rgba(12, 8, 6, 0.75);
+      backdrop-filter: blur(20px) saturate(200%);
+      -webkit-backdrop-filter: blur(20px) saturate(200%);
+      border-bottom: 1px solid rgba(255, 215, 180, 0.12);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-size: 1.7rem;
+      font-weight: 400;
+      letter-spacing: 1.5px;
+      color: #f5f0eb;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo span {
+      font-weight: 300;
+      color: #d4b8a0;
+    }
+
+    .logo i {
+      color: #d4b8a0;
+      margin-right: 0.5rem;
+      filter: drop-shadow(0 0 12px rgba(212, 184, 160, 0.15));
+    }
+
+    nav {
+      display: flex;
+      gap: 0.3rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      padding: 0.5rem 1.3rem;
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: rgba(245, 240, 235, 0.75);
+      border-radius: 40px;
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 1.5px;
+      background: #d4b8a0;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after,
+    nav a.active::after {
+      width: 40%;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: #f5f0eb;
+    }
+
+    nav a.active {
+      color: #f5f0eb;
+    }
+
+    /* ----- PAGE HERO ----- */
+    .page-hero {
+      position: relative;
+      z-index: 10;
+      padding: 10rem 2rem 3rem;
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 30%, rgba(212, 184, 160, 0.05), transparent 70%);
+    }
+
+    .page-hero h1 {
+      font-size: 3.6rem;
+      font-weight: 300;
+      letter-spacing: 2px;
+      color: #f5f0eb;
+      text-shadow: 0 4px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .page-hero h1 i {
+      color: #d4b8a0;
+      margin-right: 0.8rem;
+    }
+
+    .page-hero p {
+      font-size: 1.15rem;
+      color: rgba(245, 240, 235, 0.6);
+      max-width: 600px;
+      margin: 0.8rem auto 0;
+    }
+
+    /* ----- CONTACT SECTION (glass card, more opaque) ----- */
+    .contact-section {
+      position: relative;
+      z-index: 10;
+      padding: 0 0 4rem;
+    }
+
+    .contact-card {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 0;
+      background: rgba(12, 8, 6, 0.65);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 215, 180, 0.08);
+      border-radius: 40px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+      transition: all 0.3s ease;
+    }
+
+    .contact-card:hover {
+      border-color: rgba(212, 184, 160, 0.15);
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+    }
+
+    /* left panel - contact info */
+    .contact-info-panel {
+      padding: 3rem 2.5rem;
+      background: rgba(212, 184, 160, 0.03);
+      border-right: 1px solid rgba(255, 215, 180, 0.06);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact-info-panel .panel-title {
+      font-size: 1.4rem;
+      font-weight: 300;
+      letter-spacing: 1px;
+      color: #f5f0eb;
+      margin-bottom: 0.3rem;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .contact-info-panel .panel-subtitle {
+      color: rgba(245, 240, 235, 0.4);
+      font-size: 0.9rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-info-panel .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .contact-info-panel .info-item .icon-wrapper {
+      width: 2.8rem;
+      height: 2.8rem;
+      flex-shrink: 0;
+      background: rgba(212, 184, 160, 0.08);
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 215, 180, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    .contact-info-panel .info-item:hover .icon-wrapper {
+      background: rgba(212, 184, 160, 0.15);
+      border-color: rgba(212, 184, 160, 0.2);
+    }
+
+    .contact-info-panel .info-item .icon-wrapper i {
+      color: #d4b8a0;
+      font-size: 1.1rem;
+    }
+
+    .contact-info-panel .info-item .info-text {
+      flex: 1;
+    }
+
+    .contact-info-panel .info-item .info-text .label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: rgba(245, 240, 235, 0.3);
+      margin-bottom: 0.1rem;
+    }
+
+    .contact-info-panel .info-item .info-text .value {
+      color: rgba(245, 240, 235, 0.85);
+      font-size: 1rem;
+    }
+
+    .contact-info-panel .info-item .info-text .value a {
+      color: rgba(245, 240, 235, 0.85);
+      transition: color 0.3s ease;
+    }
+
+    .contact-info-panel .info-item .info-text .value a:hover {
+      color: #d4b8a0;
+    }
+
+    /* social links in panel */
+    .social-panel {
+      margin-top: auto;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 215, 180, 0.06);
+    }
+
+    .social-panel .social-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: rgba(245, 240, 235, 0.3);
+      margin-bottom: 0.8rem;
+    }
+
+    .social-panel .social-icons {
+      display: flex;
+      gap: 0.8rem;
+    }
+
+    .social-panel .social-icons a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.8rem;
+      height: 2.8rem;
+      border-radius: 60px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 215, 180, 0.06);
+      color: rgba(245, 240, 235, 0.3);
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+    }
+
+    .social-panel .social-icons a:hover {
+      background: rgba(212, 184, 160, 0.12);
+      border-color: rgba(212, 184, 160, 0.2);
+      color: #d4b8a0;
+      transform: translateY(-2px);
+    }
+
+    /* right panel - form */
+    .contact-form-panel {
+      padding: 3rem 2.5rem;
+    }
+
+    .contact-form-panel .form-title {
+      font-size: 1.4rem;
+      font-weight: 300;
+      letter-spacing: 1px;
+      color: #f5f0eb;
+      margin-bottom: 0.3rem;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .contact-form-panel .form-subtitle {
+      color: rgba(245, 240, 235, 0.4);
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+    }
+
+    .contact-form-panel .form-group {
+      margin-bottom: 1.2rem;
+      position: relative;
+    }
+
+    .contact-form-panel .form-group .field-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .contact-form-panel .form-group .field-wrapper i {
+      position: absolute;
+      left: 1.2rem;
+      color: rgba(212, 184, 160, 0.4);
+      font-size: 1rem;
+      transition: color 0.3s ease;
+      z-index: 2;
+      text-shadow: 0 1px 10px rgba(0,0,0,0.3);
+    }
+
+    .contact-form-panel .form-group input,
+    .contact-form-panel .form-group textarea {
+      width: 100%;
+      padding: 0.9rem 1.2rem 0.9rem 3.2rem;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 215, 180, 0.10);
+      border-radius: 60px;
+      color: #f5f0eb;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.3s ease;
+      outline: none;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .contact-form-panel .form-group input:focus,
+    .contact-form-panel .form-group textarea:focus {
+      border-color: rgba(212, 184, 160, 0.25);
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 0 0 4px rgba(212, 184, 160, 0.06);
+    }
+
+    .contact-form-panel .form-group input:focus + .field-wrapper i,
+    .contact-form-panel .form-group textarea:focus + .field-wrapper i {
+      color: #d4b8a0;
+    }
+
+    .contact-form-panel .form-group input::placeholder,
+    .contact-form-panel .form-group textarea::placeholder {
+      color: rgba(245, 240, 235, 0.35);
+    }
+
+    .contact-form-panel .form-group textarea {
+      border-radius: 24px;
+      resize: vertical;
+      min-height: 120px;
+      padding-top: 1.2rem;
+    }
+
+    .contact-form-panel .btn-submit {
+      width: 100%;
+      padding: 0.9rem;
+      background: #d4b8a0;
+      color: #0c0806;
+      border: none;
+      border-radius: 60px;
+      font-size: 1.05rem;
+      font-family: inherit;
+      font-weight: 500;
+      letter-spacing: 0.8px;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      box-shadow: 0 8px 32px rgba(212, 184, 160, 0.20);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-top: 0.3rem;
+    }
+
+    .contact-form-panel .btn-submit:hover {
+      background: #e8d5c4;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 48px rgba(212, 184, 160, 0.30);
+    }
+
+    .contact-form-panel .btn-submit:active {
+      transform: scale(0.97);
+    }
+
+    .whatsapp-note {
+      text-align: center;
+      margin-top: 1.2rem;
+      font-size: 0.85rem;
+      color: rgba(245, 240, 235, 0.3);
+    }
+
+    .whatsapp-note i {
+      color: #25D366;
+      margin-right: 0.4rem;
+    }
+
+    /* ----- FOOTER ----- */
+    footer {
+      position: relative;
+      z-index: 10;
+      background: rgba(12, 8, 6, 0.85);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(255, 215, 180, 0.06);
+      padding: 2.5rem 0;
+      text-align: center;
+      color: rgba(245, 240, 235, 0.4);
+      font-size: 0.9rem;
+      margin-top: auto;
+    }
+
+    footer a {
+      color: rgba(245, 240, 235, 0.6);
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #d4b8a0;
+    }
+
+    footer .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    footer .social-icons a {
+      font-size: 1.2rem;
+      color: rgba(245, 240, 235, 0.25);
+      transition: all 0.3s ease;
+    }
+
+    footer .social-icons a:hover {
+      color: #d4b8a0;
+      transform: translateY(-2px);
+    }
+
+    /* ----- responsive ----- */
+    @media (max-width: 768px) {
+      .header-inner {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+      }
+      nav {
+        justify-content: center;
+      }
+      nav a {
+        padding: 0.4rem 1rem;
+        font-size: 0.85rem;
+      }
+      .page-hero {
+        padding: 8rem 1.2rem 2rem;
+      }
+      .page-hero h1 {
+        font-size: 2.4rem;
+      }
+      .container {
+        padding: 0 1.2rem;
+      }
+      .contact-card {
+        grid-template-columns: 1fr;
+        border-radius: 32px;
+      }
+      .contact-info-panel {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 215, 180, 0.06);
+        padding: 2rem 1.5rem;
+      }
+      .contact-form-panel {
+        padding: 2rem 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-hero h1 {
+        font-size: 2rem;
+      }
+      .contact-info-panel,
+      .contact-form-panel {
+        padding: 1.5rem 1.2rem;
+      }
+      .contact-info-panel .info-item {
+        gap: 0.8rem;
+        margin-bottom: 1.2rem;
+      }
+      .contact-info-panel .info-item .icon-wrapper {
+        width: 2.4rem;
+        height: 2.4rem;
+      }
+      .contact-form-panel .form-group input,
+      .contact-form-panel .form-group textarea {
+        padding-left: 2.8rem;
+        font-size: 0.95rem;
+      }
+      .btn-submit {
+        font-size: 1rem;
+        padding: 0.8rem;
+      }
+    }
+
+    /* reveal animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== VIDEO BACKGROUND (brighter) ===== -->
+  <div id="videoBackground">
+    <video class="active" muted playsinline autoplay loop>
+      <source src="videos/makeup2.mp4" type="video/mp4" />
+    </video>
+    <video muted playsinline autoplay loop>
+      <source src="videos/hair1.mp4" type="video/mp4" />
+    </video>
+    <video muted playsinline autoplay loop>
+      <source src="videos/booking.mp4" type="video/mp4" />
+    </video>
+    <div class="overlay"></div>
+    <div class="vignette"></div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header id="mainHeader">
+    <div class="container header-inner">
+      <div class="logo">
+        <i class="fas fa-paint-brush"></i> El Mehsen <span>· Hair &amp; Makeup</span>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="booking.html">Book Now</a>
+        <a href="contact.html" class="active">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== PAGE HERO ===== -->
+  <section class="page-hero">
+    <h1><i class="fas fa-address-book"></i> Get in Touch</h1>
+    <p>Have a question or want to book a consultation? Reach out below.</p>
+  </section>
+
+  <!-- ===== CONTACT SECTION ===== -->
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-card reveal">
+
+        <!-- Left: Contact Info -->
+        <div class="contact-info-panel">
+          <div class="panel-title">Contact Details</div>
+          <div class="panel-subtitle">Reach out and let's create something beautiful.</div>
+
+          <div class="info-item">
+            <div class="icon-wrapper"><i class="fas fa-phone"></i></div>
+            <div class="info-text">
+              <div class="label">Phone / WhatsApp</div>
+              <div class="value"><a href="https://wa.me/23054227050" target="_blank">+230 5422 7050</a></div>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="icon-wrapper"><i class="fas fa-map-pin"></i></div>
+            <div class="info-text">
+              <div class="label">Location</div>
+              <div class="value">Port Louis, Mauritius</div>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="icon-wrapper"><i class="fas fa-clock"></i></div>
+            <div class="info-text">
+              <div class="label">Working Hours</div>
+              <div class="value">Mon–Sat: 9am – 7pm</div>
+            </div>
+          </div>
+
+          <div class="social-panel">
+            <div class="social-label">Connect with El Mehsen</div>
+            <div class="social-icons">
+              <a href="https://www.facebook.com/mehsenmua" target="_blank" rel="noopener" aria-label="Facebook">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" target="_blank" rel="noopener" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#" target="_blank" rel="noopener" aria-label="YouTube">
+                <i class="fab fa-youtube"></i>
+              </a>
+              <a href="#" target="_blank" rel="noopener" aria-label="TikTok">
+                <i class="fab fa-tiktok"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Contact Form (WhatsApp) -->
+        <div class="contact-form-panel">
+          <div class="form-title">Send a Message</div>
+          <div class="form-subtitle">I'll get back to you via WhatsApp within 24 hours.</div>
+
+          <form id="contactForm">
+            <div class="form-group">
+              <div class="field-wrapper">
+                <i class="fas fa-user"></i>
+                <input type="text" id="contactName" placeholder="Your Name *" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="field-wrapper">
+                <i class="fas fa-tag"></i>
+                <input type="text" id="contactSubject" placeholder="Subject (optional)" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="field-wrapper">
+                <i class="fas fa-pen" style="align-self: flex-start; margin-top: 1.2rem;"></i>
+                <textarea id="contactMessage" placeholder="Tell me about your vision, event, or any questions..." required></textarea>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-submit">
+              <i class="fab fa-whatsapp"></i> Send via WhatsApp
+            </button>
+            <div class="whatsapp-note">
+              <i class="fab fa-whatsapp"></i> Your message will be sent to +230 5422 7050
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <div class="social-icons">
+        <a href="https://www.facebook.com/mehsenmua" target="_blank" rel="noopener" aria-label="Facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#" target="_blank" rel="noopener" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#" target="_blank" rel="noopener" aria-label="YouTube">
+          <i class="fab fa-youtube"></i>
+        </a>
+      </div>
+      <p>&copy; 2026 El Mehsen · Hair &amp; Makeup Artist. Follow on <a href="https://www.facebook.com/mehsenmua" target="_blank" rel="noopener">Facebook</a>.</p>
+    </div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    (function() {
+      'use strict';
+
+      // ----- VIDEO BACKGROUND ROTATION -----
+      const videos = document.querySelectorAll('#videoBackground video');
+      let currentIndex = 0;
+      let videoInterval;
+
+      function rotateVideo() {
+        videos.forEach(v => v.classList.remove('active'));
+        currentIndex = (currentIndex + 1) % videos.length;
+        const nextVideo = videos[currentIndex];
+        nextVideo.classList.add('active');
+        nextVideo.currentTime = 0;
+        nextVideo.play().catch(() => {});
+        videos.forEach((v, i) => {
+          if (i !== currentIndex) v.pause();
+        });
+      }
+
+      function startVideoRotation() {
+        videos.forEach((v, i) => {
+          if (i === 0) {
+            v.classList.add('active');
+            v.play().catch(() => {});
+          } else {
+            v.classList.remove('active');
+            v.pause();
+          }
+        });
+        currentIndex = 0;
+        if (videoInterval) clearInterval(videoInterval);
+        videoInterval = setInterval(rotateVideo, 7000);
+      }
+
+      document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+          if (videoInterval) clearInterval(videoInterval);
+        } else {
+          startVideoRotation();
+        }
+      });
+
+      startVideoRotation();
+
+      // ----- HEADER SCROLL EFFECT -----
+      const header = document.getElementById('mainHeader');
+      window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 50) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      });
+
+      // ----- NAVIGATION HIGHLIGHT -----
+      const currentPage = window.location.pathname.split('/').pop() || 'contact.html';
+      document.querySelectorAll('nav a').forEach(link => {
+        if (link.getAttribute('href') === currentPage) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+
+      // ----- REVEAL ANIMATION -----
+      const revealEl = document.querySelector('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.15 });
+      if (revealEl) observer.observe(revealEl);
+
+      // ----- CONTACT FORM: WHATSAPP -----
+      const form = document.getElementById('contactForm');
+      const phoneNumber = '23054227050'; // +230 5422 7050
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('contactName').value.trim();
+        const subject = document.getElementById('contactSubject').value.trim();
+        const message = document.getElementById('contactMessage').value.trim();
+
+        if (!name || !message) {
+          alert('Please fill in your name and message.');
+          return;
+        }
+
+        let whatsappMsg = `📩 *New Message from ${name}*%0A%0A`;
+        if (subject) whatsappMsg += `📌 *Subject:* ${subject}%0A%0A`;
+        whatsappMsg += `📝 *Message:*%0A${message}%0A%0A`;
+        whatsappMsg += `—%0ASent via elmehsen.com`;
+
+        const url = `https://wa.me/${phoneNumber}?text=${whatsappMsg}`;
+        window.open(url, '_blank');
+
+        // Reset form (optional)
+        form.reset();
+      });
+
+    })();
+  </script>
+
+</body>
+</html>

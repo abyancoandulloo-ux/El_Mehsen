@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Now · El Mehsen Hair &amp; Makeup</title>
+  <meta name="description" content="Book your appointment with El Mehsen, professional makeup artist and hairdresser. Bridal, Arabian style, hijab styling, and editorial looks." />
+  <link rel="canonical" href="https://www.elmehsen.com/booking.html" />
+  <meta property="og:title" content="Book Now · El Mehsen Hair &amp; Makeup" />
+  <meta property="og:description" content="Schedule your session with El Mehsen for bridal, editorial, or everyday glam." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.elmehsen.com/booking.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BookService",
+      "name": "Book a session with El Mehsen",
+      "description": "Appointment booking for makeup and hair services.",
+      "url": "https://www.elmehsen.com/booking.html"
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* ----- RESET & BASE ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background: #0c0806;
+      color: #f5f0eb;
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ----- VIDEO BACKGROUND (lighter overlay for brighter video) ----- */
+    #videoBackground {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      overflow: hidden;
+      background: #0c0806;
+    }
+
+    #videoBackground video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 1.8s ease-in-out;
+    }
+
+    #videoBackground video.active {
+      opacity: 1;
+    }
+
+    /* Lighter overlay: reduced opacity and lighter color */
+    #videoBackground .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(12, 8, 6, 0.25);
+      background: linear-gradient(135deg, rgba(12, 8, 6, 0.35) 0%, rgba(12, 8, 6, 0.15) 60%, rgba(12, 8, 6, 0.30) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Lighter vignette */
+    #videoBackground .vignette {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+      pointer-events: none;
+      background: radial-gradient(ellipse at center, transparent 60%, rgba(0, 0, 0, 0.2) 100%);
+    }
+
+    /* ----- HEADER (glass) ----- */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 1rem 0;
+      background: rgba(12, 8, 6, 0.50);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border-bottom: 1px solid rgba(255, 215, 180, 0.08);
+      transition: background 0.4s ease, backdrop-filter 0.4s ease;
+    }
+
+    header.scrolled {
+      background: rgba(12, 8, 6, 0.75);
+      backdrop-filter: blur(20px) saturate(200%);
+      -webkit-backdrop-filter: blur(20px) saturate(200%);
+      border-bottom: 1px solid rgba(255, 215, 180, 0.12);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-size: 1.7rem;
+      font-weight: 400;
+      letter-spacing: 1.5px;
+      color: #f5f0eb;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo span {
+      font-weight: 300;
+      color: #d4b8a0;
+    }
+
+    .logo i {
+      color: #d4b8a0;
+      margin-right: 0.5rem;
+      filter: drop-shadow(0 0 12px rgba(212, 184, 160, 0.15));
+    }
+
+    nav {
+      display: flex;
+      gap: 0.3rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      padding: 0.5rem 1.3rem;
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: rgba(245, 240, 235, 0.75);
+      border-radius: 40px;
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 1.5px;
+      background: #d4b8a0;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after,
+    nav a.active::after {
+      width: 40%;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: #f5f0eb;
+    }
+
+    nav a.active {
+      color: #f5f0eb;
+    }
+
+    /* ----- PAGE HERO (booking header) ----- */
+    .page-hero {
+      position: relative;
+      z-index: 10;
+      padding: 10rem 2rem 3rem;
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 30%, rgba(212, 184, 160, 0.05), transparent 70%);
+    }
+
+    .page-hero h1 {
+      font-size: 3.6rem;
+      font-weight: 300;
+      letter-spacing: 2px;
+      color: #f5f0eb;
+      text-shadow: 0 4px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .page-hero h1 i {
+      color: #d4b8a0;
+      margin-right: 0.8rem;
+    }
+
+    .page-hero p {
+      font-size: 1.15rem;
+      color: rgba(245, 240, 235, 0.6);
+      max-width: 600px;
+      margin: 0.8rem auto 0;
+    }
+
+    /* ----- BOOKING CARD (slightly more opaque for readability) ----- */
+    .booking-section {
+      position: relative;
+      z-index: 10;
+      padding: 0 0 4rem;
+    }
+
+    .booking-card {
+      max-width: 780px;
+      margin: 0 auto;
+      background: rgba(12, 8, 6, 0.65);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 215, 180, 0.08);
+      border-radius: 40px;
+      padding: 3rem 3.5rem;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+      transition: all 0.3s ease;
+    }
+
+    .booking-card:hover {
+      border-color: rgba(212, 184, 160, 0.15);
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+    }
+
+    .booking-card .form-title {
+      font-size: 1.6rem;
+      font-weight: 300;
+      letter-spacing: 1px;
+      color: #f5f0eb;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .booking-card .form-subtitle {
+      text-align: center;
+      color: rgba(245, 240, 235, 0.5);
+      font-size: 0.95rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .booking-card .form-subtitle i {
+      color: #d4b8a0;
+      margin: 0 0.3rem;
+    }
+
+    /* form fields */
+    .form-group {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 400;
+      color: rgba(245, 240, 235, 0.8);
+      margin-bottom: 0.3rem;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+    }
+
+    .form-group .field-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .form-group .field-wrapper i {
+      position: absolute;
+      left: 1.2rem;
+      color: rgba(212, 184, 160, 0.5);
+      font-size: 1rem;
+      transition: color 0.3s ease;
+      z-index: 2;
+      text-shadow: 0 1px 10px rgba(0,0,0,0.3);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.9rem 1.2rem 0.9rem 3.2rem;
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 215, 180, 0.12);
+      border-radius: 60px;
+      color: #f5f0eb;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.3s ease;
+      outline: none;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(245, 240, 235, 0.4);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: rgba(212, 184, 160, 0.3);
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 0 4px rgba(212, 184, 160, 0.06);
+    }
+
+    .form-group input:focus + .field-wrapper i,
+    .form-group select:focus + .field-wrapper i,
+    .form-group textarea:focus + .field-wrapper i {
+      color: #d4b8a0;
+    }
+
+    .form-group textarea {
+      border-radius: 24px;
+      resize: vertical;
+      min-height: 120px;
+      padding-top: 1.2rem;
+    }
+
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23d4b8a0' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1.5rem center;
+      padding-right: 3.5rem;
+      cursor: pointer;
+    }
+
+    .form-group select option {
+      background: #1a1410;
+      color: #f5f0eb;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    /* submit button */
+    .btn-submit {
+      width: 100%;
+      padding: 1rem;
+      background: #d4b8a0;
+      color: #0c0806;
+      border: none;
+      border-radius: 60px;
+      font-size: 1.1rem;
+      font-family: inherit;
+      font-weight: 500;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      box-shadow: 0 8px 32px rgba(212, 184, 160, 0.25);
+      margin-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+    }
+
+    .btn-submit:hover {
+      background: #e8d5c4;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 48px rgba(212, 184, 160, 0.35);
+    }
+
+    .btn-submit:active {
+      transform: scale(0.97);
+    }
+
+    .whatsapp-note {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: rgba(245, 240, 235, 0.4);
+    }
+
+    .whatsapp-note i {
+      color: #25D366;
+      margin-right: 0.4rem;
+    }
+
+    .info-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 215, 180, 0.06);
+    }
+
+    .info-bar .info-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      color: rgba(245, 240, 235, 0.4);
+      font-size: 0.9rem;
+    }
+
+    .info-bar .info-item i {
+      color: #d4b8a0;
+      font-size: 1.2rem;
+    }
+
+    /* ----- FOOTER ----- */
+    footer {
+      position: relative;
+      z-index: 10;
+      background: rgba(12, 8, 6, 0.85);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(255, 215, 180, 0.06);
+      padding: 2.5rem 0;
+      text-align: center;
+      color: rgba(245, 240, 235, 0.4);
+      font-size: 0.9rem;
+      margin-top: auto;
+    }
+
+    footer a {
+      color: rgba(245, 240, 235, 0.6);
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #d4b8a0;
+    }
+
+    footer .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    footer .social-icons a {
+      font-size: 1.2rem;
+      color: rgba(245, 240, 235, 0.25);
+      transition: all 0.3s ease;
+    }
+
+    footer .social-icons a:hover {
+      color: #d4b8a0;
+      transform: translateY(-2px);
+    }
+
+    /* ----- responsive ----- */
+    @media (max-width: 768px) {
+      .header-inner {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+      }
+      nav {
+        justify-content: center;
+      }
+      nav a {
+        padding: 0.4rem 1rem;
+        font-size: 0.85rem;
+      }
+      .page-hero {
+        padding: 8rem 1.2rem 2rem;
+      }
+      .page-hero h1 {
+        font-size: 2.4rem;
+      }
+      .container {
+        padding: 0 1.2rem;
+      }
+      .booking-card {
+        padding: 2rem 1.5rem;
+        border-radius: 32px;
+      }
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      .info-bar {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-hero h1 {
+        font-size: 2rem;
+      }
+      .booking-card .form-title {
+        font-size: 1.3rem;
+      }
+      .booking-card {
+        padding: 1.5rem 1.2rem;
+      }
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        padding-left: 2.8rem;
+        font-size: 0.95rem;
+      }
+      .btn-submit {
+        font-size: 1rem;
+        padding: 0.9rem;
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== VIDEO BACKGROUND ===== -->
+  <div id="videoBackground">
+    <video class="active" muted playsinline autoplay loop>
+      <source src="videos/booking.mp4" type="video/mp4" />
+    </video>
+    <video muted playsinline autoplay loop>
+      <source src="videos/hair1.mp4" type="video/mp4" />
+    </video>
+    <video muted playsinline autoplay loop>
+      <source src="videos/hair2.mp4" type="video/mp4" />
+    </video>
+    <div class="overlay"></div>
+    <div class="vignette"></div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header id="mainHeader">
+    <div class="container header-inner">
+      <div class="logo">
+        <i class="fas fa-paint-brush"></i> El Mehsen <span>· Hair &amp; Makeup</span>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="booking.html" class="active">Book Now</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== PAGE HERO ===== -->
+  <section class="page-hero">
+    <h1><i class="fas fa-calendar-check"></i> Book Your Session</h1>
+    <p>Fill in the details below, and your booking will be sent via WhatsApp for confirmation.</p>
+  </section>
+
+  <!-- ===== BOOKING SECTION ===== -->
+  <section class="booking-section">
+    <div class="container">
+      <div class="booking-card reveal">
+        <div class="form-title">Secure Your Appointment</div>
+        <div class="form-subtitle">
+          <i class="fas fa-star"></i> Premium service · Personalized attention <i class="fas fa-star"></i>
+        </div>
+
+        <form id="bookingForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <div class="field-wrapper">
+                <i class="fas fa-user"></i>
+                <input type="text" id="name" placeholder="e.g. Aisha Khan" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="service">Service</label>
+              <div class="field-wrapper">
+                <i class="fas fa-paint-brush"></i>
+                <select id="service" required>
+                  <option value="">Select a service</option>
+                  <option value="Bridal Makeup">Bridal Makeup</option>
+                  <option value="Arabian Style Makeup">Arabian Style Makeup</option>
+                  <option value="Hijab Styling">Hijab Styling</option>
+                  <option value="Editorial / Fashion">Editorial / Fashion</option>
+                  <option value="Hair Styling">Hair Styling</option>
+                  <option value="Other">Other (specify below)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="date">Preferred Date</label>
+              <div class="field-wrapper">
+                <i class="fas fa-calendar-day"></i>
+                <input type="date" id="date" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="timeSelect">Preferred Time</label>
+              <div class="field-wrapper">
+                <i class="fas fa-clock"></i>
+                <select id="timeSelect">
+                  <option value="">Select a time</option>
+                  <!-- Times will be injected by JavaScript -->
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Special Requests / Details</label>
+            <div class="field-wrapper">
+              <i class="fas fa-pen" style="align-self: flex-start; margin-top: 1.2rem;"></i>
+              <textarea id="message" placeholder="Any specific looks, occasions, or preferences..."></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <i class="fab fa-whatsapp"></i> Send via WhatsApp
+          </button>
+          <div class="whatsapp-note">
+            <i class="fab fa-whatsapp"></i> Your booking will be sent to +230 5422 7050 for confirmation.
+          </div>
+        </form>
+
+        <!-- Info bar -->
+        <div class="info-bar">
+          <span class="info-item"><i class="fas fa-check-circle"></i> Confirmation within 24h</span>
+          <span class="info-item"><i class="fas fa-shield-alt"></i> Free cancellation up to 4h before</span>
+          <span class="info-item"><i class="fas fa-credit-card"></i> Secure booking</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <div class="social-icons">
+        <a href="https://www.facebook.com/mehsenmua" target="_blank" rel="noopener" aria-label="Facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#" target="_blank" rel="noopener" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#" target="_blank" rel="noopener" aria-label="YouTube">
+          <i class="fab fa-youtube"></i>
+        </a>
+      </div>
+      <p>&copy; 2026 El Mehsen · Hair &amp; Makeup Artist. Follow on <a href="https://www.facebook.com/mehsenmua" target="_blank" rel="noopener">Facebook</a>.</p>
+    </div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    (function() {
+      'use strict';
+
+      // ----- VIDEO BACKGROUND ROTATION -----
+      const videos = document.querySelectorAll('#videoBackground video');
+      let currentIndex = 0;
+      let videoInterval;
+
+      function rotateVideo() {
+        videos.forEach(v => v.classList.remove('active'));
+        currentIndex = (currentIndex + 1) % videos.length;
+        const nextVideo = videos[currentIndex];
+        nextVideo.classList.add('active');
+        nextVideo.currentTime = 0;
+        nextVideo.play().catch(() => {});
+        videos.forEach((v, i) => {
+          if (i !== currentIndex) v.pause();
+        });
+      }
+
+      function startVideoRotation() {
+        videos.forEach((v, i) => {
+          if (i === 0) {
+            v.classList.add('active');
+            v.play().catch(() => {});
+          } else {
+            v.classList.remove('active');
+            v.pause();
+          }
+        });
+        currentIndex = 0;
+        if (videoInterval) clearInterval(videoInterval);
+        videoInterval = setInterval(rotateVideo, 7000);
+      }
+
+      document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+          if (videoInterval) clearInterval(videoInterval);
+        } else {
+          startVideoRotation();
+        }
+      });
+
+      startVideoRotation();
+
+      // ----- HEADER SCROLL EFFECT -----
+      const header = document.getElementById('mainHeader');
+      window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 50) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      });
+
+      // ----- NAVIGATION HIGHLIGHT -----
+      const currentPage = window.location.pathname.split('/').pop() || 'booking.html';
+      document.querySelectorAll('nav a').forEach(link => {
+        if (link.getAttribute('href') === currentPage) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+
+      // ----- REVEAL ANIMATION -----
+      const revealEl = document.querySelector('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.15 });
+      if (revealEl) observer.observe(revealEl);
+
+      // ----- POPULATE TIME SELECT WITH 30-MINUTE INTERVALS -----
+      const timeSelect = document.getElementById('timeSelect');
+
+      function populateTimes() {
+        const startHour = 9;
+        const endHour = 20;
+        const step = 30;
+
+        for (let h = startHour; h <= endHour; h++) {
+          for (let m = 0; m < 60; m += step) {
+            if (h === endHour && m > 0) continue;
+            const hourStr = String(h).padStart(2, '0');
+            const minStr = String(m).padStart(2, '0');
+            const displayTime = `${hourStr}:${minStr}`;
+            const option = document.createElement('option');
+            option.value = displayTime;
+            option.textContent = displayTime;
+            timeSelect.appendChild(option);
+          }
+        }
+      }
+
+      populateTimes();
+
+      setTimeout(() => {
+        const options = timeSelect.querySelectorAll('option');
+        for (let opt of options) {
+          if (opt.value === '10:30') {
+            opt.selected = true;
+            break;
+          }
+        }
+      }, 50);
+
+      // ----- DATE: set default to tomorrow -----
+      const dateInput = document.getElementById('date');
+      if (dateInput) {
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const y = tomorrow.getFullYear();
+        const m = String(tomorrow.getMonth() + 1).padStart(2, '0');
+        const d = String(tomorrow.getDate()).padStart(2, '0');
+        dateInput.setAttribute('min', `${y}-${m}-${d}`);
+        dateInput.value = `${y}-${m}-${d}`;
+      }
+
+      // ----- FORM SUBMIT: WHATSAPP -----
+      const form = document.getElementById('bookingForm');
+      const phoneNumber = '23054227050'; // +230 5422 7050
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('name').value.trim();
+        const service = document.getElementById('service').value;
+        const date = document.getElementById('date').value;
+        const time = document.getElementById('timeSelect').value;
+        const message = document.getElementById('message').value.trim();
+
+        if (!name || !service || !date) {
+          alert('Please fill in all required fields (Name, Service, and Date).');
+          return;
+        }
+
+        let whatsappMsg = `📅 *New Booking Request*%0A%0A`;
+        whatsappMsg += `👤 *Name:* ${name}%0A`;
+        whatsappMsg += `💄 *Service:* ${service}%0A`;
+        whatsappMsg += `📆 *Date:* ${date}%0A`;
+        if (time) whatsappMsg += `⏰ *Time:* ${time}%0A`;
+        if (message) whatsappMsg += `📝 *Details:* ${message}%0A`;
+        whatsappMsg += `%0A🙏 Please confirm my appointment.`;
+
+        const url = `https://wa.me/${phoneNumber}?text=${whatsappMsg}`;
+        window.open(url, '_blank');
+      });
+
+    })();
+  </script>
+
+</body>
+</html>

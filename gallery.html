@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery · El Mehsen Hair &amp; Makeup</title>
+  <meta name="description" content="Explore the portfolio of El Mehsen, professional makeup artist and hairdresser. Bridal, Arabian style, hijab styling, and editorial looks." />
+  <link rel="canonical" href="https://www.elmehsen.com/gallery.html" />
+  <meta property="og:title" content="Gallery · El Mehsen Hair &amp; Makeup" />
+  <meta property="og:description" content="View the artistry of El Mehsen — bridal, Arabian style, hijab styling, and editorial makeup." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.elmehsen.com/gallery.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ImageGallery",
+      "name": "El Mehsen Portfolio",
+      "description": "Gallery of makeup and hair artistry by El Mehsen.",
+      "url": "https://www.elmehsen.com/gallery.html"
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* ----- RESET & BASE ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background: #0c0806;
+      color: #f5f0eb;
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ----- VIDEO BACKGROUND ----- */
+    #videoBackground {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      overflow: hidden;
+      background: #0c0806;
+    }
+
+    #videoBackground video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 1.8s ease-in-out;
+    }
+
+    #videoBackground video.active {
+      opacity: 1;
+    }
+
+    #videoBackground .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(12, 8, 6, 0.55);
+      background: linear-gradient(135deg, rgba(12, 8, 6, 0.70) 0%, rgba(12, 8, 6, 0.40) 60%, rgba(12, 8, 6, 0.65) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    #videoBackground .vignette {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+      pointer-events: none;
+      background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.5) 100%);
+    }
+
+    /* ----- HEADER (glass) ----- */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 1rem 0;
+      background: rgba(12, 8, 6, 0.50);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border-bottom: 1px solid rgba(255, 215, 180, 0.08);
+      transition: background 0.4s ease, backdrop-filter 0.4s ease;
+    }
+
+    header.scrolled {
+      background: rgba(12, 8, 6, 0.75);
+      backdrop-filter: blur(20px) saturate(200%);
+      -webkit-backdrop-filter: blur(20px) saturate(200%);
+      border-bottom: 1px solid rgba(255, 215, 180, 0.12);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-size: 1.7rem;
+      font-weight: 400;
+      letter-spacing: 1.5px;
+      color: #f5f0eb;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo span {
+      font-weight: 300;
+      color: #d4b8a0;
+    }
+
+    .logo i {
+      color: #d4b8a0;
+      margin-right: 0.5rem;
+      filter: drop-shadow(0 0 12px rgba(212, 184, 160, 0.15));
+    }
+
+    nav {
+      display: flex;
+      gap: 0.3rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      padding: 0.5rem 1.3rem;
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: rgba(245, 240, 235, 0.75);
+      border-radius: 40px;
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 1.5px;
+      background: #d4b8a0;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after,
+    nav a.active::after {
+      width: 40%;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: #f5f0eb;
+    }
+
+    nav a.active {
+      color: #f5f0eb;
+    }
+
+    /* ----- PAGE HERO ----- */
+    .page-hero {
+      position: relative;
+      z-index: 10;
+      padding: 10rem 2rem 3rem;
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 30%, rgba(212, 184, 160, 0.05), transparent 70%);
+    }
+
+    .page-hero h1 {
+      font-size: 3.6rem;
+      font-weight: 300;
+      letter-spacing: 2px;
+      color: #f5f0eb;
+      text-shadow: 0 4px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .page-hero h1 i {
+      color: #d4b8a0;
+      margin-right: 0.8rem;
+    }
+
+    .page-hero p {
+      font-size: 1.15rem;
+      color: rgba(245, 240, 235, 0.6);
+      max-width: 600px;
+      margin: 0.8rem auto 0;
+    }
+
+    /* ----- GALLERY GRID ----- */
+    .gallery-section {
+      position: relative;
+      z-index: 10;
+      padding: 1rem 0 4rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.8rem;
+      margin: 2rem 0;
+    }
+
+    .gallery-item {
+      border-radius: 24px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 215, 180, 0.06);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      cursor: pointer;
+      position: relative;
+      aspect-ratio: 1 / 1;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: rgba(212, 184, 160, 0.2);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-item .overlay-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.5rem 1.2rem 1.2rem;
+      background: linear-gradient(to top, rgba(12, 8, 6, 0.85) 0%, transparent 100%);
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.4s ease;
+    }
+
+    .gallery-item:hover .overlay-info {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .gallery-item .overlay-info h4 {
+      font-weight: 400;
+      font-size: 1.1rem;
+      color: #f5f0eb;
+      letter-spacing: 0.3px;
+    }
+
+    .gallery-item .overlay-info p {
+      font-size: 0.85rem;
+      color: rgba(245, 240, 235, 0.6);
+      margin-top: 0.2rem;
+    }
+
+    .gallery-item .overlay-info .view-icon {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(212, 184, 160, 0.15);
+      backdrop-filter: blur(8px);
+      padding: 0.5rem 0.8rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      color: #d4b8a0;
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(212, 184, 160, 0.1);
+    }
+
+    /* ----- MODAL / LIGHTBOX ----- */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 200;
+      background: rgba(12, 8, 6, 0.92);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-content {
+      max-width: 900px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 32px;
+      border: 1px solid rgba(255, 215, 180, 0.08);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      animation: slideUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal-image {
+      background: #0c0806;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal-image img {
+      max-height: 70vh;
+      max-width: 100%;
+      object-fit: contain;
+      border-radius: 16px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-description {
+      padding: 2rem 2rem 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .modal-description h2 {
+      font-weight: 400;
+      font-size: 2rem;
+      color: #f5f0eb;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-description .category {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #d4b8a0;
+      margin-bottom: 1rem;
+    }
+
+    .modal-description p {
+      color: rgba(245, 240, 235, 0.7);
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-description .close-btn {
+      align-self: flex-start;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 215, 180, 0.1);
+      padding: 0.6rem 1.8rem;
+      border-radius: 60px;
+      color: rgba(245, 240, 235, 0.6);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+
+    .modal-description .close-btn:hover {
+      background: rgba(212, 184, 160, 0.15);
+      color: #f5f0eb;
+      border-color: rgba(212, 184, 160, 0.2);
+    }
+
+    .modal-description .close-btn i {
+      margin-right: 0.5rem;
+    }
+
+    /* ----- CTA & FOOTER ----- */
+    .gallery-cta {
+      text-align: center;
+      margin: 2rem 0 1rem;
+    }
+
+    .gallery-cta .btn {
+      display: inline-block;
+      padding: 0.9rem 3rem;
+      border-radius: 60px;
+      font-size: 1.05rem;
+      letter-spacing: 0.8px;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      background: #d4b8a0;
+      color: #0c0806;
+      box-shadow: 0 8px 32px rgba(212, 184, 160, 0.20);
+    }
+
+    .gallery-cta .btn:hover {
+      background: #e8d5c4;
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 12px 48px rgba(212, 184, 160, 0.30);
+    }
+
+    footer {
+      position: relative;
+      z-index: 10;
+      background: rgba(12, 8, 6, 0.85);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(255, 215, 180, 0.06);
+      padding: 2.5rem 0;
+      text-align: center;
+      color: rgba(245, 240, 235, 0.4);
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: rgba(245, 240, 235, 0.6);
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #d4b8a0;
+    }
+
+    footer .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    footer .social-icons a {
+      font-size: 1.2rem;
+      color: rgba(245, 240, 235, 0.25);
+      transition: all 0.3s ease;
+    }
+
+    footer .social-icons a:hover {
+      color: #d4b8a0;
+      transform: translateY(-2px);
+    }
+
+    /* ----- responsive ----- */
+    @media (max-width: 768px) {
+      .header-inner {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+      }
+      nav {
+        justify-content: center;
+      }
+      nav a {
+        padding: 0.4rem 1rem;
+        font-size: 0.85rem;
+      }
+      .page-hero {
+        padding: 8rem 1.2rem 3rem;
+      }
+      .page-hero h1 {
+        font-size: 2.4rem;
+      }
+      .container {
+        padding: 0 1.2rem;
+      }
+      .modal-content {
+        grid-template-columns: 1fr;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+      .modal-image {
+        padding: 0.5rem;
+      }
+      .modal-image img {
+        max-height: 40vh;
+      }
+      .modal-description {
+        padding: 1.5rem;
+      }
+      .modal-description h2 {
+        font-size: 1.6rem;
+      }
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 1.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-hero h1 {
+        font-size: 2rem;
+      }
+      .page-hero p {
+        font-size: 1rem;
+      }
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+      }
+      .gallery-cta .btn {
+        padding: 0.7rem 2rem;
+        font-size: 0.95rem;
+      }
+    }
+
+    /* ----- reveal animations ----- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== VIDEO BACKGROUND ===== -->
+  <div id="videoBackground">
+    <video class="active" muted playsinline autoplay loop>
+      <source src="videos/makeup2.mp4" type="video/mp4" />
+    </video>
+    <video muted playsinline autoplay loop>
+      <source src="videos/makeup3.mp4" type="video/mp4" />
+    </video>
+    <video muted playsinline autoplay loop>
+      <source src="videos/hair1.mp4" type="video/mp4" />
+    </video>
+    <div class="overlay"></div>
+    <div class="vignette"></div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header id="mainHeader">
+    <div class="container header-inner">
+      <div class="logo">
+        <i class="fas fa-paint-brush"></i> El Mehsen <span>· Hair &amp; Makeup</span>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="gallery.html" class="active">Gallery</a>
+        <a href="booking.html">Book Now</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== PAGE HERO ===== -->
+  <section class="page-hero">
+    <h1><i class="fas fa-images"></i> Portfolio</h1>
+    <p>Real work from El Mehsen — bridal, Arabian style, hijab styling, and editorial.</p>
+  </section>
+
+  <!-- ===== GALLERY SECTION ===== -->
+  <section class="gallery-section">
+    <div class="container">
+      <div id="galleryGrid" class="gallery-grid">
+        <!-- Gallery items will be injected by JavaScript -->
+      </div>
+
+      <div class="gallery-cta reveal">
+        <a href="https://www.facebook.com/mehsenmua/photos" target="_blank" rel="noopener" class="btn">
+          <i class="fab fa-facebook-f" style="margin-right: 0.6rem;"></i> View All on Facebook
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MODAL ===== -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <div class="modal-image">
+        <img id="modalImg" src="" alt="" />
+      </div>
+      <div class="modal-description">
+        <span class="category" id="modalCategory">Category</span>
+        <h2 id="modalTitle">Title</h2>
+        <p id="modalDesc">Description</p>
+        <button class="close-btn" id="modalClose"><i class="fas fa-times"></i> Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <div class="social-icons">
+        <a href="https://www.facebook.com/mehsenmua" target="_blank" rel="noopener" aria-label="Facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#" target="_blank" rel="noopener" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#" target="_blank" rel="noopener" aria-label="YouTube">
+          <i class="fab fa-youtube"></i>
+        </a>
+      </div>
+      <p>&copy; 2026 El Mehsen · Hair &amp; Makeup Artist. Follow on <a href="https://www.facebook.com/mehsenmua" target="_blank" rel="noopener">Facebook</a>.</p>
+    </div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    (function() {
+      'use strict';
+
+      // ----- VIDEO BACKGROUND ROTATION -----
+      const videos = document.querySelectorAll('#videoBackground video');
+      let currentIndex = 0;
+      let videoInterval;
+
+      function rotateVideo() {
+        videos.forEach(v => v.classList.remove('active'));
+        currentIndex = (currentIndex + 1) % videos.length;
+        const nextVideo = videos[currentIndex];
+        nextVideo.classList.add('active');
+        nextVideo.currentTime = 0;
+        nextVideo.play().catch(() => {});
+        videos.forEach((v, i) => {
+          if (i !== currentIndex) v.pause();
+        });
+      }
+
+      function startVideoRotation() {
+        videos.forEach((v, i) => {
+          if (i === 0) {
+            v.classList.add('active');
+            v.play().catch(() => {});
+          } else {
+            v.classList.remove('active');
+            v.pause();
+          }
+        });
+        currentIndex = 0;
+        if (videoInterval) clearInterval(videoInterval);
+        videoInterval = setInterval(rotateVideo, 7000);
+      }
+
+      document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+          if (videoInterval) clearInterval(videoInterval);
+        } else {
+          startVideoRotation();
+        }
+      });
+
+      startVideoRotation();
+
+      // ----- GALLERY DATA (local images) -----
+      const galleryData = [{
+        title: "Bridal Glamour",
+        category: "Bridal Makeup",
+        description: "A classic bridal look with soft smoky eyes, rose-gold shimmer, and a flawless matte complexion. Perfect for the modern bride.",
+        img: "images/bridal1.webp"
+      }, {
+        title: "Hijab Elegance",
+        category: "Hijab Styling",
+        description: "Creative hijab draping paired with a fresh, natural makeup look. The soft peach tones complement the elegant styling.",
+        img: "images/hijab1.webp"
+      }, {
+        title: "Signature Arabian Style",
+        category: "Arabian Makeup",
+        description: "Dramatic black and gold smoky eyes, bold brows, and a deep mauve lip. This signature look exudes elegance and mystery.",
+        img: "images/makeup1.webp"
+      }, {
+        title: "Zarine · Editorial Glam",
+        category: "Editorial",
+        description: "A stunning editorial portrait with sculpted features, glowing skin, and a timeless soft glam finish.",
+        img: "images/zarine.jpeg"
+      }];
+
+      // ----- DOM refs -----
+      const galleryGrid = document.getElementById('galleryGrid');
+      const modal = document.getElementById('modal');
+      const modalImg = document.getElementById('modalImg');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalCategory = document.getElementById('modalCategory');
+      const modalDesc = document.getElementById('modalDesc');
+      const modalClose = document.getElementById('modalClose');
+
+      // ----- Render gallery -----
+      function renderGallery() {
+        galleryGrid.innerHTML = '';
+        galleryData.forEach((item, index) => {
+          const div = document.createElement('div');
+          div.className = 'gallery-item reveal';
+          div.style.animationDelay = (index * 0.1) + 's';
+          div.innerHTML = `
+            <img src="${item.img}" alt="${item.title}" loading="lazy" />
+            <div class="overlay-info">
+              <h4>${item.title}</h4>
+              <p>${item.category}</p>
+              <span class="view-icon"><i class="fas fa-expand"></i> View</span>
+            </div>
+          `;
+          div.addEventListener('click', function() {
+            openModal(item);
+          });
+          galleryGrid.appendChild(div);
+        });
+
+        // Reveal animation
+        setTimeout(() => {
+          document.querySelectorAll('.gallery-item.reveal').forEach(el => {
+            el.classList.add('visible');
+          });
+        }, 200);
+      }
+
+      renderGallery();
+
+      // ----- Modal functions -----
+      function openModal(item) {
+        modalImg.src = item.img;
+        modalImg.alt = item.title;
+        modalTitle.textContent = item.title;
+        modalCategory.textContent = item.category || 'Portfolio';
+        modalDesc.textContent = item.description || 'No description available.';
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      modalClose.addEventListener('click', closeModal);
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) closeModal();
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+      });
+
+      // ----- HEADER SCROLL EFFECT -----
+      const header = document.getElementById('mainHeader');
+      window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 50) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      });
+
+      // ----- NAVIGATION HIGHLIGHT -----
+      const currentPage = window.location.pathname.split('/').pop() || 'gallery.html';
+      document.querySelectorAll('nav a').forEach(link => {
+        if (link.getAttribute('href') === currentPage) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+
+      // ----- REVEAL ON SCROLL (for CTA) -----
+      const revealElements = document.querySelectorAll('.reveal:not(.gallery-item)');
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
+
+      revealElements.forEach(el => revealObserver.observe(el));
+
+    })();
+  </script>
+
+</body>
+</html>
